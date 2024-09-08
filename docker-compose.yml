@@ -1,0 +1,31 @@
+# docker-compose.yml file for the week08 project
+version: "3.9"
+
+services:
+  book-catalog:
+    image: week08_book_catalog:1
+    build:
+      context: ./book_catalog
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: "postgresql://tanzimtipu_user:Syh2ww4b7dEQEXLRkaPAj4oHa6cxzfBZ@dpg-cre51e3v2p9s73cqgn10-a.oregon-postgres.render.com/tanzimtipu"
+    networks:
+      - app-network
+
+  inventory_management:
+    image: week08_inventory_management:1
+    build:
+      context: ./inventory_management
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      DATABASE_URL: "postgresql://tanzimtipu_user:Syh2ww4b7dEQEXLRkaPAj4oHa6cxzfBZ@dpg-cre51e3v2p9s73cqgn10-a.oregon-postgres.render.com/tanzimtipu"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
